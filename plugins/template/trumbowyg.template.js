@@ -7,6 +7,9 @@
             en: {
                 template: 'Template'
             },
+            da: {
+                template: 'Skabelon'
+            },
             fr: {
                 template: 'Patron'
             },
@@ -35,8 +38,9 @@
                 init: function (trumbowyg) {
                     trumbowyg.addBtnDef('template', {
                         dropdown: templateSelector(trumbowyg),
-                        hasIcon: false,
-                        text: trumbowyg.lang.template
+                        hasIcon: true,
+                        text: trumbowyg.lang.template,
+                        ico: 'link',
                     });
                 }
             }
@@ -51,7 +55,11 @@
         $.each(available, function (index, template) {
             trumbowyg.addBtnDef('template_' + index, {
                 fn: function () {
-                    trumbowyg.html(template.html);
+                    if (template.append) {
+                        trumbowyg.html(trumbowyg.html() + template.html);
+                    } else {
+                        trumbowyg.html(template.html);
+                    }
                 },
                 hasIcon: false,
                 title: template.name
